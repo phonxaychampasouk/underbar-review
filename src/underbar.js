@@ -117,18 +117,53 @@ for(var key in collection)
   // Produce a duplicate-free version of the array.
   _.uniq = function(array, isSorted, iterator) {
 
-    var result = [];
-    var arrayCopy = Array.from(array);
-    var countForEach = {};
-    for(var i = 0; i < arrayCopy.length; i++) {
+    if(isSorted === false || isSorted === undefined) {
+      var result = [];
+      var arrayCopy = Array.from(array);
+      var countForEach = {};
+      for(var i = 0; i < arrayCopy.length; i++) {
       var hasProp = countForEach.hasOwnProperty(arrayCopy[i]);
       if(hasProp === false) {
         result.push(arrayCopy[i]);
         countForEach[arrayCopy[i]] = 1;
-      }
+      };
+
     }
-    return result;
-  };
+     else if (isSorted === true)
+     {
+      var result = [];
+      var tempArr =[];
+      var arrayCopy = Array.from(array);
+      var countForEach = {};
+      for(var i = 0; i < arrayCopy.length; i++)
+      {
+        tempArr.push(iterator(arrayCopy[i]))
+      };
+      for(var i = 0; i < arrayCopy.length; i++) {
+        var hasProp = countForEach.hasOwnProperty(arrayCopy[i]);
+        if(hasProp === false) {
+          result.push(arrayCopy[i]);
+          countForEach[arrayCopy[i]] = 1;
+        };
+
+      }
+    };
+
+
+
+
+  //     for(var i = 0; i < arrayCopy.length; i++) {
+  //     var hasProp = countForEach.hasOwnProperty(iterator(arrayCopy[i]));
+
+  //     if(hasProp === false) {
+  //       result.push(arrayCopy[i]);
+  //       countForEach[arrayCopy[i]] = 1;
+  //     }
+  //   }
+  //   }
+  //   return result;
+  // };
+    };
 
 
   // Return the results of applying an iterator to each element.
